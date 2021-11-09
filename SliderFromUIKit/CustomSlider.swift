@@ -30,7 +30,7 @@ struct CustomSlider: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.value = value
+        uiView.setValue(value, animated: true) 
         // TODO: make alpha for thumb
     }
     
