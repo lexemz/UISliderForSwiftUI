@@ -11,11 +11,6 @@ struct ContentView: View {
     @State private var targetValue = Int.random(in: 1...100)
     @State private var currentValue = Float.random(in: 1...100)
     
-    private var score: Int {
-        let difference = abs(targetValue - lround(Double(currentValue)))
-        return 100 - difference
-    }
-    
     @State private var alertPresented = false
 
     var body: some View {
@@ -35,7 +30,7 @@ struct ContentView: View {
             
             Button("Результат", action: resultPressed)
             .alert("Результат", isPresented: $alertPresented, actions: {}) {
-                    Text("\(score)")
+                    Text("\(computeScore())")
                 }
         }
         .padding()
@@ -48,6 +43,11 @@ struct ContentView: View {
     
     private func resultPressed() {
         alertPresented = true
+    }
+    
+    private func computeScore() -> Int {
+        let difference = abs(targetValue - lround(Double(currentValue)))
+        return 100 - difference
     }
 }
 
