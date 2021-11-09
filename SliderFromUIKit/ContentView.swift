@@ -20,7 +20,6 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("\(currentValue)")
             Text("Установите слайдер к \(targetValue)")
 
             Button(action: shuffleDesiredValue) {
