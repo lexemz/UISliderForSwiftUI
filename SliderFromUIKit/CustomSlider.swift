@@ -10,7 +10,6 @@ import SwiftUI
 struct CustomSlider: UIViewRepresentable {
     @Binding var value: Float
     
-    // Создаем элемент
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
         
@@ -19,25 +18,22 @@ struct CustomSlider: UIViewRepresentable {
 
         
         slider.value = value
-        slider.thumbTintColor = UIColor(red: 1, green: 0, blue: 0, alpha: CGFloat(value / 100))
+        slider.thumbTintColor = UIColor(red: 1, green: 0, blue: 0, alpha: CGFloat(1))
         
-        // Связь метода из координатора с UIKit элементом
         slider.addTarget(
-            context.coordinator, // класс, в котором есть требуемый метод. Он доступен через параметр метода - context
-            action: #selector(Coordinator.sliderDidChangeValue), // имя метода из класса выше
-            for: .allEvents // момент вызова метода
+            context.coordinator,
+            action: #selector(Coordinator.sliderDidChangeValue),
+            for: .allEvents
         )
 
         return slider
     }
     
-    // Обновить представление
     func updateUIView(_ uiView: UISlider, context: Context) {
         uiView.value = value
-        uiView.thumbTintColor = UIColor(red: 1, green: 0, blue: 0, alpha: CGFloat(value / 100))
+        // TODO: make alpha for thumb
     }
     
-    // Создать координатор для потока данных
     func makeCoordinator() -> Coordinator {
         Coordinator(value: $value)
     }
@@ -45,17 +41,13 @@ struct CustomSlider: UIViewRepresentable {
 }
 
 extension CustomSlider {
-    // Класс-координатор для потока данных между UIKit и SwiftUI
     class Coordinator: NSObject {
-        @Binding var value: Float // Свойство посредник
+        @Binding var value: Float
 
-        // для класса инициализатор создается вручную
         init(value: Binding<Float>) {
-            // Binding - обертка и внутрь неё нужно передать данныем через _
             self._value = value
         }
         
-        // действие, которое будет совершено при передаче данных
         @objc func sliderDidChangeValue(_ sender: UISlider) {
             value = sender.value
         }
