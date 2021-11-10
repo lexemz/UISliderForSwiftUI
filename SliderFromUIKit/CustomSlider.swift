@@ -18,9 +18,8 @@ struct CustomSlider: UIViewRepresentable {
         slider.maximumValue = 100
 
         
-        slider.value = value
         slider.thumbTintColor = UIColor(red: 1, green: 0, blue: 0, alpha: alpha)
-        print(alpha)
+        slider.value = value
         
         slider.addTarget(
             context.coordinator,
@@ -32,9 +31,8 @@ struct CustomSlider: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.setValue(value, animated: true) 
-        // TODO: make alpha for thumb
         uiView.thumbTintColor = UIColor(red: 1, green: 0, blue: 0, alpha: alpha)
+        uiView.setValue(value, animated: true) 
     }
     
     func makeCoordinator() -> Coordinator {
