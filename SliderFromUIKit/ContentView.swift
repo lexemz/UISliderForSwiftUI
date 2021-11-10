@@ -27,17 +27,18 @@ struct ContentView: View {
                 Text("Изменить число")
             }
             
-            
             HStack {
                 Text("0")
                 CustomSlider(value: $currentValue, alpha: resultValueBinding)
                 Text("100")
             }
+            .padding(.top, 30)
             
             Button("Результат", action: resultPressed)
             .alert("Результат", isPresented: $alertPresented, actions: {}) {
                     Text("\(computeScore())")
                 }
+            .padding(.top, 30)
         }
         .padding()
     }
