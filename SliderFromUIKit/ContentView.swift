@@ -14,6 +14,12 @@ struct ContentView: View {
     @State private var alertPresented = false
 
     var body: some View {
+        let resultValueBinding = Binding(projectedValue: Binding<CGFloat>(
+            get: { CGFloat(self.computeScore()) / 100 },
+            set: { _ in }
+        ))
+        
+        
         VStack {
             Text("Установите слайдер к \(targetValue)")
 
@@ -24,7 +30,7 @@ struct ContentView: View {
             
             HStack {
                 Text("0")
-                CustomSlider(value: $currentValue)
+                CustomSlider(value: $currentValue, alpha: resultValueBinding)
                 Text("100")
             }
             
