@@ -14,10 +14,10 @@ struct ContentView: View {
     @State private var alertPresented = false
 
     var body: some View {
-        let resultValueBinding = Binding(projectedValue: Binding<CGFloat>(
+        let resultValueBinding = Binding(
             get: { CGFloat(self.computeScore()) / 100 },
             set: { _ in }
-        ))
+        )
         
         
         VStack {
