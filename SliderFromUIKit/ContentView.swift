@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var targetValue = Int.random(in: 1...100)
+    @State private var targetValue = 100
     @State private var currentValue = Float.random(in: 1...100)
     
     @State private var alertPresented = false
 
     var body: some View {
-        let resultValueBinding = Binding(
-            get: { CGFloat(self.computeScore()) / 100 },
-            set: { _ in }
-        )
-        
         
         VStack {
             Text("Установите слайдер к \(targetValue)")
@@ -29,7 +24,10 @@ struct ContentView: View {
             
             HStack {
                 Text("0")
-                CustomSlider(value: $currentValue, alpha: resultValueBinding)
+                CustomSlider(
+                    value: $currentValue,
+                    alpha: CGFloat(computeScore()) / 100
+                )
                 Text("100")
             }
             .padding(.top, 30)

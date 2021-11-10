@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomSlider: UIViewRepresentable {
     @Binding var value: Float
-    @Binding var alpha: CGFloat
+    var alpha: CGFloat
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
@@ -31,12 +31,12 @@ struct CustomSlider: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
+        uiView.setValue(value, animated: true)
         uiView.thumbTintColor = UIColor(red: 1, green: 0, blue: 0, alpha: alpha)
-        uiView.setValue(value, animated: true) 
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(value: $value, alpha: $alpha)
+        Coordinator(value: $value)
     }
     
 }
@@ -44,22 +44,19 @@ struct CustomSlider: UIViewRepresentable {
 extension CustomSlider {
     class Coordinator: NSObject {
         @Binding var value: Float
-        @Binding var alpha: CGFloat
 
-        init(value: Binding<Float>, alpha: Binding<CGFloat>) {
+        init(value: Binding<Float>) {
             self._value = value
-            self._alpha = alpha
         }
         
         @objc func sliderDidChangeValue(_ sender: UISlider) {
             value = sender.value
-            alpha = sender.alpha
         }
     }
 }
 
 struct CustomSlider_Previews: PreviewProvider {
     static var previews: some View {
-        CustomSlider(value: .constant(5), alpha: .constant(50))
+        CustomSlider(value: .constant(50), alpha: 50)
     }
 }
